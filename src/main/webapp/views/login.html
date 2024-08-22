@@ -22,12 +22,12 @@
         }
         main {
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            padding: 5%;
+            padding: 12% 4%;
             background: #fff;
             color: #000;
             border-radius: 25px;
             width: 100%;
-            max-width: 400px; /* 데스크탑 및 모바일에서의 최대 폭 설정 */
+            max-width: 500px;
             box-sizing: border-box;
         }
         .logo {
@@ -81,8 +81,8 @@
         /* 모바일 스타일 (화면 너비 768px 이하) */
         @media all and (max-width: 768px) {
             main {
-                padding: 5% 8%; /* 모바일에서 좌우 여백을 8%로 조정 */
-                max-width: 350px; /* 모바일 환경에서 최대 폭을 350px로 조정 */
+                padding: 9% 14%;
+                max-width: 335px;
             }
 
             .logo {
@@ -91,14 +91,16 @@
             }
 
             fieldset {
-                padding: 2%; /* 모바일에서 padding 조정 */
+                padding: 2%; /* 모바일에서 패딩 조정 */
             }
 
             input {
-                font-size: 14px; /* 모바일 화면에서 폰트 크기 조정 */
-                width: 90%; /* 모바일에서 입력 박스의 너비를 줄임 */
-                max-width: 300px; /* 모바일에서 입력 박스의 최대 너비 설정 */
-                padding: 8px; /* 입력 박스의 패딩 조정 */
+                font-size: 14px; /* 폰트 크기 14px로 설정 */
+                width: 100%; /* 인풋 필드를 필드셋 안에서 100%로 확장 */
+                max-width: 250px; /* 인풋 필드의 최대 너비를 250px로 제한 */
+                padding: 10px; /* 패딩을 10px로 설정하여 여백을 줄임 */
+                box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비를 계산 */
+                margin: 0 auto; /* 중앙 정렬 */
             }
 
             button {
@@ -113,10 +115,10 @@
     <h2>로그인</h2>
     <form id="login-form">
         <fieldset>
-            <input type="text" id="userid" name="userid" maxlength="20" placeholder="아이디" required>
+            <input type="text" id="userid" name="userid"  placeholder="아이디" required>
         </fieldset>
         <fieldset>
-            <input type="password" id="password" name="password" maxlength="20" placeholder="비밀번호" required>
+            <input type="password" id="password" name="password"  placeholder="비밀번호" required>
         </fieldset>
         <button type="submit" id="login-button">로그인</button>
         <button type="button" id="signup-button">회원가입</button>
