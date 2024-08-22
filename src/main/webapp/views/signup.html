@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        /* 기본 스타일 (웹용) */
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+        body {
+            background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+        }
+        main {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 5%;
+            background: #fff;
+            color: #000;
+            border-radius: 25px;
+            max-width: 90%;
+            width: 400px;
+        }
+        .logo {
+            width: 150px;
+            margin: 12px auto 20px;
+        }
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 20px 10px;
+            width: 100%;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+        }
+        input {
+            border: none;
+            background-color: transparent;
+            font-size: 16px;
+            color: #000;
+            width: 100%; /* Input takes up full width */
+            box-sizing: border-box;
+            font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+        }
+        input::placeholder {
+            color: #666; /* 중간 회색 */
+            opacity: 0.85;  /* 약간의 투명도 추가 */
+            font-weight: 500; /* 폰트 두께 중간 */
+        }
+        input:focus {
+            outline: none;
+        }
+        .signup {
+            border: none;
+        }
+        button {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background: #7bd9ff;
+            padding: 15px;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%; /* Button takes up full width */
+            box-sizing: border-box;
+            font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+        }
+        button:active {
+            position: relative;
+            top: 5px;
+        }
+
+        /* 모바일 스타일 (화면 너비 768px 이하) */
+        @media all and (max-width: 768px) {
+            main {
+                padding: 5% 8%; /* 모바일에서 좌우 여백을 4%로 조정 */
+                width: 100%;
+                max-width: 335px; /* 모바일 환경에서 최대 폭을 350px로 조정 */
+                box-sizing: border-box;
+            }
+
+            .logo {
+                width: 150px;
+                margin: 12px auto 20px;
+            }
+
+            fieldset {
+                padding: 20px 10px;
+                width: 100%;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+
+            input {
+                font-size: 14px; /* 작은 화면에서 글자 크기 축소 */
+                box-sizing: border-box;
+            }
+
+            button {
+                padding: 12px; /* 작은 화면에서 버튼 패딩 축소 */
+                font-size: 14px; /* 작은 화면에서 버튼 글자 크기 축소 */
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+<main>
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="skyblue" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" d="M22 5.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.343 8.343 0 0 1-2.605.981A4.13 4.13 0 0 0 15.85 4a4.068 4.068 0 0 0-4.1 4.038c0 .31.035.618.105.919A11.705 11.705 0 0 1 3.4 4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 6.1 13.635a4.192 4.192 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 2 18.184 11.732 11.732 0 0 0 8.291 20 11.502 11.502 0 0 0 19.964 8.5c0-.177 0-.349-.012-.523A8.143 8.143 0 0 0 22 5.892Z" clip-rule="evenodd"/>
+    </svg>
+    <h2>회원 가입</h2>
+    <form id="signup-form">
+        <fieldset>
+            <input type="text" id="userid" name="userid" placeholder="아이디" required>
+        </fieldset>
+        <div class="success-message hide"></div>
+        <div class="failure-message hide"></div>
+        <fieldset>
+            <input type="text" id="name" name="name" placeholder="이름" required>
+        </fieldset>
+        <fieldset>
+            <input type="password" id="password" name="password" placeholder="비밀번호" required>
+        </fieldset>
+        <div class="success-password hide"></div>
+        <div class="failure-password hide"></div>
+        <fieldset>
+            <input type="password" id="password-retype" placeholder="비밀번호 확인" required>
+        </fieldset>
+        <div class="password-retype-message hide"></div>
+        <fieldset>
+            <input type="email" id="email" name="email" placeholder="이메일" required>
+        </fieldset>
+        <div class="email-message hide"></div>
+        <fieldset class="signup">
+            <button type="submit">가입하기</button>
+        </fieldset>
+    </form>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+    const signupForm = document.querySelector('#signup-form');
+    const useridInput = document.querySelector('#userid');
+    const passwordInput = document.querySelector('#password');
+    const passwordRetypeInput = document.querySelector('#password-retype');
+    const emailInput = document.querySelector('#email');
+    const successMessage = document.querySelector('.success-message');
+    const failureMessage = document.querySelector('.failure-message');
+    const successPassword = document.querySelector('.success-password');
+    const failurePassword = document.querySelector('.failure-password');
+    const passwordRetypeMessage = document.querySelector('.password-retype-message');
+    const emailMessage = document.querySelector('.email-message');
+
+    // 아이디 유효성 검사
+    useridInput.addEventListener('input', function() {
+        const userid = useridInput.value;
+
+        if (userid === '') {
+            successMessage.classList.add('hide');
+            failureMessage.classList.add('hide');
+        } else if (userid.length < 4) {
+            failureMessage.textContent = '아이디는 최소 4자 이상이어야 합니다.';
+            failureMessage.classList.remove('hide');
+            successMessage.classList.add('hide');
+        } else if (localStorage.getItem(userid) !== null) {
+            failureMessage.textContent = '중복된 아이디입니다.';
+            failureMessage.classList.remove('hide');
+            successMessage.classList.add('hide');
+        } else {
+            successMessage.textContent = '사용할 수 있는 아이디입니다.';
+            successMessage.classList.remove('hide');
+            failureMessage.classList.add('hide');
+        }
+    });
+
+    // 비밀번호 유효성 검사
+    passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+
+        if (password === '') {
+            successPassword.classList.add('hide');
+            failurePassword.classList.add('hide');
+        } else if (password.length < 6) {
+            failurePassword.textContent = '비밀번호는 최소 6자 이상이어야 합니다.';
+            failurePassword.classList.remove('hide');
+            successPassword.classList.add('hide');
+        } else if (!/[!@#$%^&*]/.test(password)) {
+            failurePassword.textContent = '비밀번호에는 특수문자가 포함되어야 합니다.';
+            failurePassword.classList.remove('hide');
+            successPassword.classList.add('hide');
+        } else {
+            successPassword.textContent = '사용할 수 있는 비밀번호입니다.';
+            successPassword.classList.remove('hide');
+            failurePassword.classList.add('hide');
+        }
+    });
+
+    passwordRetypeInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        const passwordRetype = passwordRetypeInput.value;
+
+        if (passwordRetype === '') {
+            passwordRetypeMessage.classList.add('hide');
+        } else if (passwordRetype !== password) {
+            passwordRetypeMessage.textContent = '비밀번호가 일치하지 않습니다.';
+            passwordRetypeMessage.classList.remove('hide');
+        } else {
+            passwordRetypeMessage.textContent = '비밀번호가 일치합니다.';
+            passwordRetypeMessage.classList.remove('hide');
+        }
+    });
+
+    // 이메일 유효성 검사
+    emailInput.addEventListener('input', function() {
+        const email = emailInput.value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === '') {
+            emailMessage.classList.add('hide');
+        } else if (!emailPattern.test(email)) {
+            emailMessage.textContent = '유효한 이메일 주소를 입력해주세요.';
+            emailMessage.classList.remove('hide');
+        } else {
+            emailMessage.textContent = '유효한 이메일 주소입니다.';
+            emailMessage.classList.remove('hide');
+        }
+    });
+
+    // 회원가입 제출 처리
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const userid = document.querySelector('#userid').value;
+        const password = document.querySelector('#password').value;
+        const passwordRetype = document.querySelector('#password-retype').value;
+        const email = document.querySelector('#email').value;
+
+        if (localStorage.getItem(userid) !== null) {
+            alert('이미 존재하는 아이디입니다. 다른 아이디를 사용해주세요.');
+            return;
+        }
+
+        if (userid === '' || password === '' || passwordRetype === '' || email === '') {
+            alert('모든 필드를 입력해주세요.');
+            return;
+        }
+
+        if (userid.length < 4) {
+            alert('아이디는 최소 4자 이상이어야 합니다.');
+            return;
+        }
+
+        if (password.length < 6) {
+            alert('비밀번호는 최소 6자 이상이어야 합니다.');
+            return;
+        }
+
+        if (password !== passwordRetype) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+        if (!passwordPattern.test(password)) {
+            alert('비밀번호는 최소 6자 이상이며, 문자, 숫자 및 특수문자를 포함해야 합니다.');
+            return;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert('유효한 이메일 주소를 입력해주세요.');
+            return;
+        }
+
+        // 비밀번호 해시화
+        const hashedPassword = CryptoJS.SHA256(password).toString();
+
+        localStorage.setItem(userid, hashedPassword);
+        alert('회원가입 완료!');
+        window.location.href = 'login.html';
+    });
+</script>
+</body>
+</html>
