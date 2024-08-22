@@ -149,6 +149,7 @@
             return;
         }
 
+
         const hashedPassword = CryptoJS.SHA256(password).toString();
         const storedPassword = localStorage.getItem(userid);
 
