@@ -1,16 +1,32 @@
 $(document).ready(function () {
-   const content = "Hello. \n Blue Bird";
-   let i = 0;
+    const content = "Hello👋 \n Blue Bird.";
+    let i = 0;
 
-   function typing() {
-       let txt = content[i++];
-       $(".text").html($(".text").html() + (txt === "\n" ? "<br>" : txt));
+    function typing() {
+        if(i < content.length) {
+            let txt = content[i++];
+            $(".text").html($(".text").html() + (txt === "\n" ? "<br>" : txt));
+        } else {
+            // 텍스트 타이핑 효과 멈추기
+            clearInterval(typingInterval);
+            // 'click' 텍스트 표시
+            $(".click").fadeIn();
 
-       if(i > content.length) {
-           $(".text").html("");
-           i = 0;
-       }
-   }
+            // 15초 후 텍스트 타이핑 효과 다시 시작
+            setTimeout(function () {
+                $(".text").html("");
+                // 'click' 텍스트 숨기기
+                $(".click").fadeOut();
+                i = 0;
 
-   setInterval(typing, 200);
+                typingInterval = setInterval(typing, 200);
+            }, 15000);
+        }
+    }
+
+    let typingInterval =  setInterval(typing, 200);
+
+    // $(".click").click(function () {
+    //    window.location.href = "/views/login.html";
+    // });
 });
