@@ -25,6 +25,10 @@ main {
     box-sizing: border-box;
 }
 
+ul {
+    list-style-type: none;
+}
+
 input {
     border: none;
     background-color: transparent;
@@ -96,32 +100,6 @@ button:active {
 
 #chat-div {
     height: 300px;
-}
-
-table {
-    width: 100%;
-}
-
-tr {
-    min-height: 100px;
-    max-width: 200px;
-    overflow-wrap: break-word;
-    word-break: keep-all;
-}
-
-.chat-space {
-    width: 40%;
-}
-
-.chat-other .chat-me {
-    width: 30%;
-    max-width: 200px;
-    overflow-wrap: break-word;
-    word-break: keep-all;
-}
-
-.chat-me {
-    text-align: right;
 }
 
 .bg-me {

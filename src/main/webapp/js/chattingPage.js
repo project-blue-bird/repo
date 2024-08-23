@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 let userId; // 입장시 사용되는 아이디.
 
 
-const ws = new WebSocket("ws://192.168.35.14:8000");
+const ws = new WebSocket("ws://mhd.hopto.org:8000");
 
 
 ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익명함수 정의.
@@ -38,7 +38,7 @@ window.addEventListener("visibilitychange", () => { // 채팅 화면이 최소�
 
 
 ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
-    const chatTbody = document.querySelector("#chat-tbody");
+    const chatUl = document.querySelector("#chat-ul");
     const chatAvatar = document.createElement("img");
     chatAvatar.src = "../images/avatar.png";
     chatAvatar.classList.add("chat-avatar");
@@ -58,40 +58,37 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
                 icon: "success",
                 title: `환영합니다, ${parsedData.userId} 님!!!`
             });
-            let noticeChatRow = document.createElement("tr");
-            let noticeChat = document.createElement("td");
+            let noticeChat = document.createElement("li");
             noticeChat.textContent = `${parsedData.userId} 님이 입장하셨습니다.`;
-            noticeChat.colSpan = 3;
-            
-            noticeChatRow.appendChild(noticeChat);
-
-            chatTbody.appendChild(noticeChatRow);
+            chatUl.appendChild(noticeChat);
             break;
         case "new-chat": // 새로운 채팅이 올라옴.
-            let newChatRow = document.createElement("tr");
-            let chatMe = document.createElement("td");
-            let chatSpace = document.createElement("td");
-            let chatOther = document.createElement("td");
+            let newChat = document.createElement("li");
+            let newChatContentSpan = document.createElement("span");
+            let newChatDateSpan = document.createElement("span");
+            let now = new Date();
+            let day = now.getDate();
+            let month = now.getMonth();
+            let mm = now.getMinutes();
+            let hh = now.getHours();
+            let hhampm = hh % 12 ? (hh % 12).toString() + " PM" : hh.toString() + " AM";
             if (parsedData.userId === userId) { // 내가 말한 경우,
-                chatMe.textContent = parsedData.content;
-                chatMe.appendChild(chatAvatar);
-                chatSpace.textContent = ""
-                chatOther.textContent = "";
+                newChat.appendChild(chatAvatar);
+                newChatContentSpan.textContent = parsedData.content;
+                newChatDateSpan.textContent = `${month}월${day}일 ${hhampm}${mm}`;
+                newChat.classList.add("d-flex", "flex-row-reverse", "align-items-end", "my-3", "bg-me");
+                newChatContentSpan.classList.add("chat-box", "me-1");
+                newChatDateSpan.classList.add("tx-small");
             } else { // 다른 사람이 말한 경우,
-                chatMe.textContent = "";
-                chatSpace.textContent = ""
-                chatOther.appendChild(chatAvatar);
-                chatOther.textContent = parsedData.content;
+                newChat.appendChild(chatAvatar);
+                newChatContentSpan.textContent = parsedData.content;
+                newChatDateSpan.textContent = `${month}월${day}일 ${hhampm}${mm}`;
+                newChatDateSpan.textContent = Date.format("M월D일 HH:mm");
+                newChat.classList.add("d-flex", "flex-row", "align-items-end", "my-3", "bg-me");
+                newChatContentSpan.classList.add("chat-box", "mine", "ms-1");
+                newChatDateSpan.classList.add("tx-small", "text-end");
             }
-            chatMe.classList.add("chat-me", "bg-me");
-            chatOther.classList.add("chat-other", "bg-other");
-            chatSpace.classList.add("chat-space");
-
-            newChatRow.appendChild(chatOther);
-            newChatRow.appendChild(chatSpace);
-            newChatRow.appendChild(chatMe);
-
-            chatTbody.appendChild(newChatRow);
+            chatUl.appendChild(newChat);
             break;
         default:
             // 여기에 예외처리...
