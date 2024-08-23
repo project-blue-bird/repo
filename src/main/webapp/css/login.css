@@ -1,0 +1,96 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+body {
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+}
+main {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    padding: 12% 4%;
+    background: #fff;
+    color: #000;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 20px 10px;
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+input {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    color: #000;
+    width: 100%;
+    box-sizing: border-box;
+}
+input::placeholder {
+    color: #666; /* 중간 회색 */
+    opacity: 0.85;  /* 약간의 투명도 추가 */
+    font-weight: 500; /* 폰트 두께 중간 */
+}
+input:focus {
+    outline: none;
+}
+button {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: #7bd9ff;
+    padding: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 100%; /* Button takes up full width */
+    box-sizing: border-box;
+}
+button:active {
+    position: relative;
+    top: 5px;
+}
+
+/* 모바일 스타일 (화면 너비 768px 이하) */
+@media all and (max-width: 768px) {
+    main {
+        padding: 9% 14%;
+        max-width: 335px;
+    }
+
+
+    fieldset {
+        padding: 2%; /* 모바일에서 패딩 조정 */
+    }
+
+    input {
+        font-size: 14px; /* 폰트 크기 14px로 설정 */
+        width: 100%; /* 인풋 필드를 필드셋 안에서 100%로 확장 */
+        max-width: 250px; /* 인풋 필드의 최대 너비를 250px로 제한 */
+        padding: 10px; /* 패딩을 10px로 설정하여 여백을 줄임 */
+        box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비를 계산 */
+        margin: 0 auto; /* 중앙 정렬 */
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px; /* 모바일 화면에서 버튼 패딩 조정 */
+    }
+}
