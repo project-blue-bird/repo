@@ -5,7 +5,7 @@ let userSessionId; // 입장시 사용되는 아이디.
 
 
 // const ws = new WebSocket("ws://mhd.hopto.org:8000");
-const ws = new WebSocket("ws://192.168.240.14:8000");
+const ws = new WebSocket("ws://mhd.hopto.org:8000");
 
 
 ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익명함수 정의.
