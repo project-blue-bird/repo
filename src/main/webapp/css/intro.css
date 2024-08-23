@@ -1,25 +1,79 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 
-.text_box{
-    font-size: 35px;
+body {
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+    overflow: hidden;
+}
+
+.text_box {
+    color: white;
     text-align: center;
-    font-family: 'Pretendard';
     font-weight: 700;
+    position: relative;
+    padding: 0 10px;
 }
 
 .blink {
+    color: white;
     animation: blink 0.5s infinite;
-    font-size: 2.5rem;
+    font-size: 1em; /* blink 크기 조정 */
+}
+
+.click {
+    display: none;
+    margin-top: 20px;
+    font-size: 1.5rem; /* PC 환경에서 클릭 텍스트 크기 조정 */
+    color: white;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 @keyframes blink {
-    0% {
-        opacity: 1;
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 기본 폰트 크기 */
+.text_box {
+    font-size: calc(24px + 2vw); /* 화면 너비에 따라 조정된 기본 폰트 크기 */
+}
+
+.blink {
+    font-size: calc(1em + 0.5vw); /* 커서 크기 조정 */
+}
+
+/* 모바일 기기용 (갤럭시 S24 울트라 대응) */
+@media (max-width: 600px) {
+    .text_box {
+        font-size: calc(36px + 8vw); /* 모바일에서 매우 큰 폰트 크기 적용 */
     }
-    50% {
-        opacity: 0;
+
+    .click {
+        font-size: 3rem; /* 모바일에서 클릭 텍스트 크기 조정 */
     }
-    100% {
-        opacity: 1;
+
+    .blink {
+        font-size: calc(1.5em + 2vw); /* 모바일에서 blink 크기 조정 */
+    }
+}
+
+/* 태블릿 기기용 */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .text_box {
+        font-size: calc(28px + 4vw); /* 태블릿에서 적절한 폰트 크기 */
+    }
+
+    .click {
+        font-size: 2.5rem; /* 태블릿에서 클릭 텍스트 크기 조정 */
+    }
+
+    .blink {
+        font-size: calc(1.2em + 1.5vw); /* 태블릿에서 blink 크기 조정 */
     }
 }
