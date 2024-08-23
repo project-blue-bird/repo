@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facetime</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="../css/facetime.css">
+    <script type="text/javascript" src="../js/facetime.js"></script>
+</head>
+<body>
+    <div class="facetime-container">
+        <h2>화상 채팅</h2>
+        <div class="video-container">
+            <video id="localVideo" autoplay playsinline muted></video>
+            <video id="remoteVideo" autoplay playsinline muted></video>
+        </div>
+        <p id="waitingMessage">상대방을 기다리는 중...</p>
+        <button onclick="endCall()">종료</button>
+    </div>
+</body>
+</html>

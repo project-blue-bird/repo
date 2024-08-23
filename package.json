@@ -1,7 +1,6 @@
 {
-  "name": "pjt-blue-bird",
+  "name": "blueBirdProject",
   "version": "1.0.0",
-  "type": "module",
   "description": "- Init",
   "main": "index.js",
   "scripts": {
@@ -11,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "resize-observer-polyfill": "^1.5.1",
     "sweetalert2": "^11.12.4",
     "ws": "^8.18.0"
