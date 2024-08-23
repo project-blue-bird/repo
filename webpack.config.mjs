@@ -2,7 +2,7 @@ import path from "path";
 
 
 export default {
-    entry: "./src/main/webapp/js/chattingPage.js",
+    entry: "./src/main/webapp/js/chattingPage.mjs",
     output: {
         filename: "bundle.js",
         path: path.resolve("src/main/webapp/js"),
