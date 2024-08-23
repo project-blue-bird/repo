@@ -1,7 +1,6 @@
 {
   "name": "blueBirdProject",
   "version": "1.0.0",
-  "type": "module",
   "description": "- Init",
   "main": "index.js",
   "scripts": {
