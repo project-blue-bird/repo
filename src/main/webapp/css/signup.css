@@ -1,0 +1,105 @@
+/* 기본 스타일 (웹용) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+body {
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+}
+main {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    padding: 5%;
+    background: #fff;
+    color: #000;
+    border-radius: 25px;
+    max-width: 90%;
+    width: 400px;
+}
+fieldset {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 20px 10px;
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+input {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    color: #000;
+    width: 100%; /* Input takes up full width */
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+}
+input::placeholder {
+    color: #666; /* 중간 회색 */
+    opacity: 0.85;  /* 약간의 투명도 추가 */
+    font-weight: 500; /* 폰트 두께 중간 */
+}
+input:focus {
+    outline: none;
+}
+.signup {
+    border: none;
+}
+button {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: #7bd9ff;
+    padding: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 100%; /* Button takes up full width */
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif; /* 폰트 적용 */
+}
+button:active {
+    position: relative;
+    top: 5px;
+}
+.hide{
+    display: none;
+}
+
+/* 모바일 스타일 (화면 너비 768px 이하) */
+@media all and (max-width: 768px) {
+    main {
+        padding: 5% 8%; /* 모바일에서 좌우 여백을 4%로 조정 */
+        width: 100%;
+        max-width: 335px; /* 모바일 환경에서 최대 폭을 350px로 조정 */
+        box-sizing: border-box;
+    }
+
+
+    fieldset {
+        padding: 20px 10px;
+        width: 100%;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input {
+        font-size: 14px; /* 작은 화면에서 글자 크기 축소 */
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 12px; /* 작은 화면에서 버튼 패딩 축소 */
+        font-size: 14px; /* 작은 화면에서 버튼 글자 크기 축소 */
+        box-sizing: border-box;
+    }
+}
