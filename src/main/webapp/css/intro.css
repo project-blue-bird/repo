@@ -31,7 +31,6 @@ body {
     font-size: 1.5rem; /* PC 환경에서 클릭 텍스트 크기 조정 */
     color: white;
     cursor: pointer;
-    text-decoration: underline;
 }
 
 @keyframes blink {
