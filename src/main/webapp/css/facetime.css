@@ -1,0 +1,76 @@
+/* facetime.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(to top, #209cff 0%, #68e0cf 100%);
+    /*background: linear-gradient(135deg, #00d2ff, #3a7bd5);*/
+}
+
+.facetime-container {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.video-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+video {
+    width: 48%;
+    height: 300px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    background-color: black; /* 비디오가 없는 경우 검정색 배경 */
+}
+
+#waitingMessage {
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff5c5c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff1e1e;
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        flex-direction: column;
+    }
+
+    video {
+        width: 100%;
+        margin-bottom: 1rem;
+        height: 200px;
+    }
+}

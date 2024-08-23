@@ -2,9 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
 </head>
 <body>
+    <div class="chat-container">
+        <div class="user-list">
+            <!-- 사용자 리스트 -->
+            <h3>사용자 목록</h3>
+            <ul>
+                <li>사용자 1</li>
+                <li>사용자 2</li>
+                <!-- 추가 사용자들 -->
+            </ul>
+        </div>
+        <div class="chat-window">
+            <div class="chat-messages">
+                <!-- 채팅 메시지들이 표시되는 영역 -->
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="메시지를 입력하세요">
+                <button>전송</button>
+            </div>
+            <button class="facetime-button" onclick="startFacetime()">화상 채팅</button>
+        </div>
+    </div>
 
+    <script>
+        function startFacetime() {
+            // 화상 채팅 버튼을 누르면 facetime.html로 이동
+            window.location.href = '/views/facetime.html';
+        }
+    </script>
 </body>
 </html>
