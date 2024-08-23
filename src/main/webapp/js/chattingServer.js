@@ -15,6 +15,16 @@ wss.on("connection", (ws) => {
         let parsedData = JSON.parse(data);
         switch (parsedData.type) {
             case "identify":
+                wss.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        let content = parsedData.content;
+                        let userId = parsedData.userId;
+                        response = JSON.stringify({ type: "new-chat", userId: userId, content: content });
+                        client.send(response);
+                    } else {
+                        console.log("클라이언트가 준비되지 않았음.")
+                    }
+                });
                 let userId = parsedData.userId;
                 userList.push(userId);
                 console.log(`현재 참여중인 인원: ${userList.length}`);
