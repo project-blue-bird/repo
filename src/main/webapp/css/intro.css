@@ -47,17 +47,20 @@ button:hover {
 .click {
     display: none;
     margin-top: 20px;
-    font-size: 1.5rem; /* PC 환경에서 버튼 텍스트 크기 조정 */
+    font-size: 1.5rem;
     color: white;
     cursor: pointer;
-    max-width: 35%;
-    background-color: #7bd9ff; /* 버튼 배경색 */
-    border: 2px solid white; /* 버튼 테두리 색 */
-    border-radius: 10px; /* 버튼 모서리 둥글기 */
-    padding: 12px 27px; /* 버튼 패딩 */
-    font-weight: bold; /* 버튼 글씨 두께 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+    max-width: 20%;
+    background-color: #7bd9ff;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 12px 27px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 5% auto 0 auto;
+    margin-bottom: auto;
+    text-decoration: none;
 }
 
 /* 버튼 호버 시 스타일 */
@@ -102,6 +105,7 @@ button:hover {
     }
     .click {
         font-size: 1rem; /* 모바일에서 폰트 크기 조정 */
+        padding: 3% 5%;
     }
 }
 
@@ -115,4 +119,130 @@ button:hover {
         margin: 30px auto; /* 태블릿에서 버튼을 가운데 정렬 */
         display: block; /* 태블릿에서 블록 요소로 설정 */
     }
+
+
+}
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+body {
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+    overflow: hidden;
+}
+/* 버튼 기본 스타일 */
+button {
+    border-radius: 10px;
+    opacity: 0.8; /* 불투명도 설정 */
+    border: 2px solid white; /* 흰색 테두리 */
+    font-weight: bold; /* 글자 굵게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+    background-color: #7bd9ff;
+    color: #fff;
+    padding: 12px 27px;
+    font-family: 'Pretendard', sans-serif;
+    display: inline-block; /* 버튼을 인라인 블록 요소로 설정 */
+}
+
+/* 버튼 호버 시 스타일 */
+button:hover {
+    opacity: 1; /* 호버 시 불투명도 100% */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 효과 증가 */
+    transform: scale(1.05); /* 호버 시 약간 확대 */
+}
+.text_box {
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding: 0 10px;
+    /* 너비와 최대 너비 조정 */
+    width: 100%;
+    max-width: 600px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+/* 버튼 기본 스타일 */
+.click {
+    display: none;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    max-width: 20%;
+    background-color: #7bd9ff;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 12px 27px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 5% auto 0 auto;
+    margin-bottom: auto;
+    text-decoration: none;
+}
+
+/* 버튼 호버 시 스타일 */
+.click:hover {
+    opacity: 1; /* 호버 시 불투명도 100% */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 효과 증가 */
+    transform: scale(1.05); /* 호버 시 약간 확대 */
+}
+
+
+.blink {
+    color: white;
+    animation: blink 0.5s infinite;
+    font-size: 1em; /* blink 크기 조정 */
+}
+
+
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 기본 폰트 크기 */
+.text_box {
+    font-size: calc(24px + 2vw); /* 화면 너비에 따라 조정된 기본 폰트 크기 */
+}
+
+.blink {
+    font-size: calc(1em + 0.5vw); /* 커서 크기 조정 */
+}
+
+/* 모바일 기기용 (갤럭시 S24 울트라 대응) */
+@media all and (max-width: 768px) {
+    button {
+        font-size: 16px; /* 모바일에서 폰트 크기 조정 */
+        padding: 8px 4px; /* 모바일에서 버튼 패딩 조정 */
+        width: 90%; /* 버튼 너비를 90%로 설정하여 화면 크기에 맞춤 */
+        max-width: 90px; /* 최대 너비 설정 */
+        margin: 20px auto; /* 모바일에서 버튼을 가운데 정렬 */
+        display: block; /* 모바일에서 블록 요소로 설정 */
+    }
+    .click {
+        font-size: 1rem; /* 모바일에서 폰트 크기 조정 */
+        padding: 3% 5%;
+    }
+}
+
+/* 태블릿 화면에서 버튼 스타일 (최소 너비: 601px, 최대 너비: 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    button {
+        font-size: calc(1.2rem + 0.5vw); /* 태블릿에서 폰트 크기 조정 */
+        padding: calc(10px + 0.5vw) calc(15px + 1vw); /* 태블릿에서 버튼 패딩 조정 */
+        width: calc(80% + 5vw); /* 버튼 너비를 화면 크기에 맞춤 */
+        max-width: 80%; /* 최대 너비를 화면 크기에 맞춤 */
+        margin: 30px auto; /* 태블릿에서 버튼을 가운데 정렬 */
+        display: block; /* 태블릿에서 블록 요소로 설정 */
+    }
+
+
 }
