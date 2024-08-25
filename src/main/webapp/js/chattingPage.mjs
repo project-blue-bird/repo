@@ -2,10 +2,25 @@ import Swal from "sweetalert2";
 
 
 let userSessionId; // 입장시 사용되는 아이디.
+const ws = new WebSocket("wss://mhd.hopto.org:8443/chat");
 
 
-// const ws = new WebSocket("ws://mhd.hopto.org:8000");
-const ws = new WebSocket("ws://mhd.hopto.org:8000");
+window.onload = () => {
+    const previousUrl = document.referrer;
+    if (previousUrl === "https://mhd.hopto.org/views/login.html") {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "로그인 성공!",
+            showConfirmButton: false,
+            timer: 3000
+        });
+    }
+    userSessionId = sessionStorage.getItem("userid");
+    if (userSessionId === undefined || userSessionId === null) {
+        window.location.href = "../views/login.html";
+    }
+}
 
 
 ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익명함수 정의.
@@ -16,8 +31,7 @@ ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익
         ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: inputSendMessage.value }));
         inputSendMessage.value = ""; // input값 초기화.
     })
-    userSessionId = sessionStorage.getItem("userid");
-    if (userSessionId === null) { // 만약 아이디를 설정하지 못했다면,
+    if (userSessionId === undefined) { // 만약 아이디를 설정하지 못했다면,
         ws.send(JSON.stringify({ type: "no-nick" }));
     } else { // 그렇지 않은 경우 인증 시도.
         ws.send(JSON.stringify({ type: "identify", userId: userSessionId }));
@@ -40,11 +54,12 @@ function createNewChat(isMe, parsedData) { // 새로운 채팅을 만들어주�
     const chatAvatar = document.createElement("img");
     let parsedUserId = parsedData.userId;
     chatAvatar.src = "../images/avatar.png";
-    if (parsedUserId !== userSessionId) { // 내 글이 아닌 경우에만 클릭 이벤트 생성.
+    chatAvatar.style.cursor = "pointer";
+    if (parsedUserId !== userSessionId) { // 내 글이 아닌 경우에만 facetime 클릭 이벤트 생성.
         chatAvatar.addEventListener("click", () => {
             Swal.fire({
-                title: "Face time",
-                text: "Face time을 하시겠습니까?",
+                title: "Facetime",
+                text: "Facetime을 하시겠습니까?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -53,8 +68,21 @@ function createNewChat(isMe, parsedData) { // 새로운 채팅을 만들어주�
                 cancelButtonText: "아니오"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    ws.send(JSON.stringify({ type: "request-face-time", requestUserId: userSessionId, otherUserId: parsedUserId }));
-                    window.location.href = "../views/facetime.html";
+                    ws.send(JSON.stringify({ type: "request-facetime", requestUserId: userSessionId, otherUserId: parsedUserId }));
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                    });
+                    Toast.fire({
+                        icon: undefined,
+                        html: `
+                        상대방의 수락을 기다리고 있습니다... 
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        `
+                    });
                 }
             });
         });
@@ -98,6 +126,10 @@ window.addEventListener("visibilitychange", () => { // 채팅 화면이 최소�
 
 ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
     const chatUl = document.querySelector("#chat-ul");
+    let reqId;
+    let othId;
+    let confId;
+    let denyId;
     // 데이터 받아서 파싱.
     let data = event.data;
     let parsedData = JSON.parse(data);
@@ -105,17 +137,6 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
     switch (parsedData.type) {
         case "init": // 서버에 최초로 접속함.
             parsedUserId = parsedData.userId;
-            const Toast = Swal.mixin({
-                toast: true,
-                showConfirmButton: true,
-                confirmButtonText: "안녕하세요~",
-            });
-            if (parsedUserId === userSessionId) {
-                Toast.fire({
-                    icon: "success",
-                    title: `환영합니다, ${parsedUserId} 님!!!`
-                });
-            }
             let noticeChat = document.createElement("li");
             noticeChat.textContent = `${parsedUserId} 님이 입장하셨습니다.`;
             chatUl.appendChild(noticeChat);
@@ -128,14 +149,29 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
                 newChat = createNewChat(false, parsedData);
             }
             chatUl.appendChild(newChat);
-            tbodyChat.scrollTop = tbodyChat.scrollHeight;
+            const simpleBarInstance = SimpleBar.instances.get(document.querySelector("#chat-div"));
+            const scrollElement = simpleBarInstance.getScrollElement();
+            scrollElement.scrollTop = scrollElement.scrollHeight;
             break;
-        case "request-face-time": // 새로운 채팅이 올라옴.
-            let reqId = parsedData.requestUserId;
-            if (parsedData.otherUserId === userSessionId) { // 지목된 아이디가 내 아이디인 경우,
+        case "already-facetime": // 상대방이 이미 Facetime 중인 경우.
+            reqId = parsedData.requestUserId;
+            othId = parsedData.otherUserId;
+            if (userSessionId === reqId) { // 신청했던 사람에게 답변을 보냄.
+                Swal.close(); // 기존 대기중 toast 닫기.
                 Swal.fire({
-                    title: "Face time",
-                    text: `${reqId}님 으로부터 Face time 요청이 도착했습니다.\n연결하시겠습니까?`,
+                    icon: "error",
+                    title: "Facetime",
+                    text: `${othId} 님은 다른 사람과 Facetime 중입니다.`,
+                    confirmButtonText: "확인",
+                });
+            }
+            break;
+        case "request-facetime": // Facetime 신청.
+            reqId = parsedData.requestUserId;
+            if (userSessionId === parsedData.otherUserId) { // 지목된 아이디가 내 아이디인 경우,
+                Swal.fire({
+                    title: "Facetime",
+                    text: `${reqId}님 으로부터 Facetime 요청이 도착했습니다.\n연결하시겠습니까?`,
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
@@ -144,17 +180,36 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
                     cancelButtonText: "아니오"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "../views/facetime.html";
+                        ws.send(JSON.stringify({ type: "facetime-confirm", confirmUserId: userSessionId, requestUserId: reqId }));
                     } else {
-                        ws.send(JSON.stringify({ type: "request-face-time-deny", denyUserId: userSessionId, requestUserId: reqId }));
+                        ws.send(JSON.stringify({ type: "facetime-deny", denyUserId: userSessionId, requestUserId: reqId }));
                     }
                 });
             }
-            chatUl.appendChild(newChat);
-            tbodyChat.scrollTop = tbodyChat.scrollHeight;
+            break;
+        case "facetime-confirm": // Facetime 이 수락됨.
+            reqId = parsedData.requestUserId;
+            confId = parsedData.confirmUserId;
+            // 신청한 사람과 수락한 사람을 화상 채팅방으로 이동시킴.
+            if (userSessionId === reqId || userSessionId === confId) {
+                window.location.href = "../views/facetime.html";
+            }
+            break;
+        case "facetime-deny": // Facetime 이 거절됨.
+            reqId = parsedData.requestUserId;
+            denyId = parsedData.denyUserId;
+            if (userSessionId === reqId) { // 신청했던 사람에게 답변을 보냄.
+                Swal.close(); // 기존 대기중 toast 닫기.
+                Swal.fire({
+                    icon: "error",
+                    title: "Facetime",
+                    text: `${denyId} 님이 Facetime 을 거절하셨습니다.`,
+                    confirmButtonText: "확인",
+                });
+            }
             break;
         default:
-            // 여기에 예외처리...
+            // ...
             break;
     }
 });
@@ -166,6 +221,11 @@ ws.onclose = (event) => {
     let exitReason = event.reason;
     if (exitCode === 1003) {
         console.log();
-        alert(exitReason);
+        Swal.fire({
+            icon: "error",
+            title: "연결이 끊겼습니다.",
+            text: `${exitReason}`,
+            confirmButtonText: "확인",
+        });
     }
 };

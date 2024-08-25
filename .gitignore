@@ -268,3 +268,4 @@ dist
 .svelte-kit
 
 .smarttomcat/
+users.json
