@@ -173,11 +173,17 @@ li {
     }
 }
 
-/* 기본 모바일 스타일 */
+/* 반응형 스타일 조정 */
 @media (max-width: 768px) {
     main {
         padding: 1rem;
         height: 85vh;
+    }
+
+    li {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        max-width: 90%;
     }
 
     #send-msg-button {
@@ -192,8 +198,18 @@ li {
     }
 }
 
-/* 작은 모바일 기기 (가로 480px 이하) */
 @media (max-width: 480px) {
+    li {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        max-width: 95%;
+    }
+
+    .notice-chat {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
     #send-msg-button {
         width: 45px;
         height: 45px;
@@ -207,10 +223,15 @@ li {
 
 /* 갤럭시 S24 울트라 등 특정 고해상도 모바일 기기 */
 @media (max-width: 432px) and (max-height: 960px) {
-    main {
-        padding: 8% 10%;
-        height: 85vh;
-        max-width: 350px;
+    li {
+        padding: 0.45rem 0.65rem;
+        font-size: 0.85rem;
+        max-width: 92%;
+    }
+
+    .notice-chat {
+        font-size: 0.85rem;
+        padding: 7px 11px;
     }
 
     #send-msg-button {
@@ -226,10 +247,15 @@ li {
 
 /* 아이폰 12 Pro Max 등 중형 모바일 기기 */
 @media (max-width: 390px) and (max-height: 844px) {
-    main {
-        padding: 7% 8%;
-        height: 85vh;
-        max-width: 350px;
+    li {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        max-width: 94%;
+    }
+
+    .notice-chat {
+        font-size: 0.85rem;
+        padding: 8px 10px;
     }
 
     #send-msg-button {
@@ -238,16 +264,22 @@ li {
     }
 
     #send-msg-input {
-        padding: 0.55rem;
+        padding: 0.5rem;
         font-size: 0.85rem;
     }
 }
 
 /* 작은 폰, 피처폰 등 */
 @media (max-width: 360px) {
-    main {
-        padding: 5% 6%;
-        height: auto;
+    li {
+        padding: 0.35rem 0.55rem;
+        font-size: 0.75rem;
+        max-width: 95%;
+    }
+
+    .notice-chat {
+        font-size: 0.8rem;
+        padding: 7px 10px;
     }
 
     #send-msg-button {
