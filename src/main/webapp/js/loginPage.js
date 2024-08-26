@@ -21,8 +21,7 @@ loginForm.addEventListener('submit', function(event) {
     }
 
     const hashedPassword = CryptoJS.SHA256(password).toString();
-    // fetch("https://mhd.hopto.org:8443/api/get-users", {
-    fetch("http://192.168.240.46:9099/api/get-users", {
+    fetch("https://mhd.hopto.org:8443/api/get-users", {
         method: "GET",
     }).then((response) => {
         if (!response.ok) { // OK 하지 않으면 에러난거임.

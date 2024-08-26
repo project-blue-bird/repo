@@ -136,7 +136,6 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
             noticeChat.textContent = `${parsedUserId} 님이 입장하셨습니다.`;
             noticeChat.classList.add("notice-chat"); // 공지 메시지 클래스 추가
             chatUl.appendChild(noticeChat);
-            console.log(noticeChat.outerHTML); // 추가된 HTML을 확인
             break;
         case "new-chat": // 새로운 채팅이 올라옴.
             let newChat;

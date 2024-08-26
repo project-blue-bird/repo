@@ -80,8 +80,7 @@ window.onload = function () {
         ]
     };
 
-    // ws = new WebSocket("wss://mhd.hopto.org:8443/facetime"); // -> 서버 통합.
-    ws = new WebSocket("ws://192.168.240.46:9099/facetime");
+    ws = new WebSocket("wss://mhd.hopto.org:8443/facetime"); // -> 서버 통합.
 
     const iceCandidateQueue = []; // ICE candidates를 저장할 Queue.
 
