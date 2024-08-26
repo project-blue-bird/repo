@@ -4,22 +4,23 @@ let userSessionId; // 입장시 사용되는 아이디.
 const ws = new WebSocket("wss://mhd.hopto.org:8443/chat");
 
 window.onload = () => {
-    const previousUrl = document.referrer;
-    if (previousUrl === "https://mhd.hopto.org/views/login.html") {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "center",
-            showConfirmButton: false,
-            timer: 3000,
-        });
-        Toast.fire({
-            icon: "success",
-            title: "로그인 성공!"
-        });
-    }
     userSessionId = sessionStorage.getItem("userid");
     if (userSessionId === undefined || userSessionId === null) {
         window.location.href = "../views/login.html";
+    } else {
+        const previousUrl = document.referrer;
+        if (previousUrl === "https://mhd.hopto.org/views/login.html") {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "center",
+                showConfirmButton: false,
+                timer: 3000,
+            });
+            Toast.fire({
+                icon: "success",
+                title: "로그인 성공!"
+            });
+        }
     }
 }
 
@@ -28,11 +29,15 @@ ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익
     const buttonSendMsg = document.querySelector("#send-msg-button");
     buttonSendMsg.addEventListener("click", () => { // 메세지를 채팅 서버로 보내는 익명함수 정의.
         const inputSendMessage = document.querySelector("#send-msg-input");
-        ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: inputSendMessage.value }));
-        inputSendMessage.value = ""; // input값 초기화.
+        const messageValue = inputSendMessage.value;
+        if (messageValue) {
+            ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: messageValue }));
+            inputSendMessage.value = ""; // input값 초기화.
+        }
     })
-    if (userSessionId === undefined) { // 만약 아이디를 설정하지 못했다면,
+    if (userSessionId === undefined || userSessionId === null) { // 만약 아이디를 설정하지 못했다면,
         ws.send(JSON.stringify({ type: "no-nick" }));
+        window.location.href = "../views/login.html";
     } else { // 그렇지 않은 경우 인증 시도.
         ws.send(JSON.stringify({ type: "identify", userId: userSessionId }));
     }
@@ -87,25 +92,30 @@ function createNewChat(isMe, parsedData) { // 새로운 채팅을 만들어주�
             });
         });
     }
+    let newChatContentDiv = document.createElement("div");
     chatAvatar.classList.add("chat-avatar");
     const newChat = document.createElement("li");
     let newChatContentSpan = document.createElement("span");
     let newChatDateSpan = document.createElement("span");
     newChat.appendChild(chatAvatar);
+    let newChatIdSpan = document.createElement("span");
+    newChatIdSpan.textContent = parsedUserId;
+    newChat.appendChild(newChatIdSpan);
     newChatContentSpan.textContent = parsedData.content;
     newChatDateSpan.textContent = printDate();
     newChat.classList.add("d-flex", "align-items-end", "my-3");
     newChatContentSpan.classList.add("chat-box");
     newChatDateSpan.classList.add("message-time");
     if (isMe) { // 내가 말한 경우,
-        newChat.classList.add("flex-row-reverse", "bg-me");
+        newChatContentDiv.classList.add("flex-row-reverse", "bg-me");
         newChatContentSpan.classList.add("me-1");
     } else { // 다른 사람이 말한 경우,
-        newChat.classList.add("flex-row", "bg-other");
+        newChatContentDiv.classList.add("flex-row", "bg-other");
         newChatContentSpan.classList.add("ms-1");
         newChatDateSpan.classList.add("text-end");
     }
-    newChat.appendChild(newChatContentSpan);
+    newChatContentDiv.appendChild(newChatContentSpan);
+    newChat.appendChild(newChatContentDiv);
     newChat.appendChild(newChatDateSpan);
     return newChat;
 }

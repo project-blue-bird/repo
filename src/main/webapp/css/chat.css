@@ -60,6 +60,21 @@ li {
     animation: fadeIn 0.5s ease-in-out;
 }
 
+li > div {
+    list-style-type: none;
+    max-width: 80%;
+    padding: 0.75rem 1.25rem;
+    border-radius: 20px;
+    word-break: break-word;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 0.5rem 0;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
 .bg-me {
     background-color: #ffe082;
     align-self: flex-end;

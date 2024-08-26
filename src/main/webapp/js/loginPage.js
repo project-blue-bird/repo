@@ -32,14 +32,32 @@ loginForm.addEventListener('submit', function(event) {
         if (responseData) {
             const users = responseData.data;
             if (users[userid] && users[userid].password === hashedPassword) {
-                // 로그인 성공 시 세션 저장
-                sessionStorage.setItem('userid', userid);
+                async function loadUsers() {
+                    const response = await fetch("https://mhd.hopto.org:8443/api/get-chatting-users", {
+                        method: "GET",
+                    });
+                    const data = await response.json();
+                    return data;
+                }
+                loadUsers().then((responseData) => {
+                    const chattingUserList = responseData.data;
+                    if (!chattingUserList.includes()) {
+                        // 로그인 성공 시 세션 저장
+                        sessionStorage.setItem('userid', userid);
 
-                // 쿠키에 저장 (하루 동안 유지)
-                const expires = new Date();
-                expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000)); // 24시간 후
-                document.cookie = `userid=${userid}; expires=${expires.toUTCString()}; path=/`;
-                window.location.href = 'chat.html';
+                        // 쿠키에 저장 (하루 동안 유지)
+                        const expires = new Date();
+                        expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000)); // 24시간 후
+                        document.cookie = `userid=${userid}; expires=${expires.toUTCString()}; path=/`;
+                        window.location.href = 'chat.html';
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "이미 로그인중인 유저입니다.",
+                            confirmButtonText: "확인"
+                        });
+                    }
+                });
             } else {
                 Swal.fire({
                     icon: "error",

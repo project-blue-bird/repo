@@ -7,6 +7,7 @@ import fs from "fs";
 
 
 dotenv.config();
+const userList = [];
 
 
 const serverOptions = {
@@ -90,6 +91,19 @@ app.get("/api/get-users", (req, res) => {
         };
         res.status(code).json(response);
     });
+});
+
+
+app.get("/api/get-chatting-users", (req, res) => {
+    const response = {
+        status: "success",
+        data: userList,
+        error: null,
+        meta: {
+            requestTime: new Date().toISOString()
+        },
+    };
+    res.status(200).json(response);
 });
 
 
@@ -192,24 +206,27 @@ wssFacetime.on("connection", (ws) => { // Facetime 서버.
 
 
 wssChatting.on("connection", (ws) => { // 채팅 서버.
-    const userList = [];
     let signalingUserList;
     console.log("신규 채팅 유저와 연결됨.");
     ws.on("message", (data) => {
+        let idx;
         let response;
         let parsedData = JSON.parse(data);
         switch (parsedData.type) {
             case "identify":
                 let userId = parsedData.userId;
-                userList.push(userId);
-                wssChatting.clients.forEach(client => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        let userId = parsedData.userId;
-                        response = JSON.stringify({ type: "init", userId: userId });
-                        client.send(response);
-                    }
-                });
-                console.log(`현재 참여중인 인원: ${userList.length}`);
+                idx = userList.indexOf(userId);
+                if (idx === -1) {
+                    userList.push(userId);
+                    wssChatting.clients.forEach(client => {
+                        if (client.readyState === WebSocket.OPEN) {
+                            let userId = parsedData.userId;
+                            response = JSON.stringify({ type: "init", userId: userId });
+                            client.send(response);
+                        }
+                    });
+                    console.log(`현재 참여중인 인원: ${userList.length}`);
+                }
                 break;
             case "send-chat":
                 wssChatting.clients.forEach(client => {
@@ -228,7 +245,7 @@ wssChatting.on("connection", (ws) => { // 채팅 서버.
                 break;
             case "leave":
                 let exitUserId = parsedData.userId;
-                let idx = userList.indexOf(exitUserId);
+                idx = userList.indexOf(exitUserId);
                 if (idx !== -1) {
                     userList.splice(idx, 1);
                 }
