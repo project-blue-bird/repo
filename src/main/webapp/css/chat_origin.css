@@ -1,0 +1,380 @@
+/*@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');*/
+
+/*body {*/
+/*    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);*/
+/*    color: white;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    height: 100vh;*/
+/*    margin: 0;*/
+/*    font-family: 'Pretendard', sans-serif;*/
+/*    padding: 0 1rem;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*main {*/
+/*    background: rgba(255, 255, 255, 0.9);*/
+/*    border-radius: 20px;*/
+/*    width: 100%;*/
+/*    max-width: 500px;*/
+/*    height: 80vh;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);*/
+/*    padding: 1rem;*/
+/*    box-sizing: border-box;*/
+/*    backdrop-filter: blur(10px);*/
+/*}*/
+
+/*#chat-div {*/
+/*    flex-grow: 1;*/
+/*    overflow-y: auto;*/
+/*    margin-bottom: 1rem;*/
+/*    padding: 0.5rem;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*#chat-ul {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 0.5rem;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
+
+/*li {*/
+/*    list-style-type: none;*/
+/*    max-width: 70%;*/
+/*    padding: 0.75rem 1rem;*/
+/*    border-radius: 15px;*/
+/*    word-break: break-word;*/
+/*    box-sizing: border-box;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.bg-me {*/
+/*    background-color: #ffe082;*/
+/*    align-self: flex-end;*/
+/*    color: #333;*/
+/*}*/
+
+/*.bg-other {*/
+/*    background-color: #30cfd0;*/
+/*    align-self: flex-start;*/
+/*    color: white;*/
+/*}*/
+
+/*.chat-avatar {*/
+/*    width: 32px;*/
+/*    height: 32px;*/
+/*    border-radius: 50%;*/
+/*    margin-right: 0.5rem;*/
+/*    vertical-align: middle;*/
+/*}*/
+
+/*.message-input-container {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 10px;*/
+/*}*/
+
+/*#send-msg-input {*/
+/*    flex-grow: 1;*/
+/*    border: none;*/
+/*    border-radius: 20px;*/
+/*    padding: 0.75rem 1rem;*/
+/*    margin-right: 0.5rem;*/
+/*    box-sizing: border-box;*/
+/*    font-size: 0.9rem;*/
+/*}*/
+
+/*#send-msg-input:focus {*/
+/*    outline: none;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*#send-msg-button {*/
+/*    border: none;*/
+/*    border-radius: 50%;*/
+/*    background-color: #30cfd0;*/
+/*    color: white;*/
+/*    padding: 0.5rem;*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    transition: background-color 0.3s ease;*/
+/*    font-size: 0.8rem;*/
+/*    text-align: center;*/
+/*}*/
+
+/*#send-msg-button:hover {*/
+/*    background-color: #007ea7;*/
+/*}*/
+
+/*#send-msg-button:active {*/
+/*    transform: scale(0.95);*/
+/*}*/
+
+/*#send-msg-button span {*/
+/*    display: block;*/
+/*}*/
+
+/*#send-msg-button svg {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*}*/
+
+/*!* 채팅 메시지 시간 표시 *!*/
+/*.message-time {*/
+/*    font-size: 0.75rem;*/
+/*    color: #999;*/
+/*    text-align: right;*/
+/*    margin-top: 0.25rem;*/
+/*}*/
+
+/*!* 공지 메시지 스타일 *!*/
+/*.notice-chat {*/
+/*    color: black !important; !* 글자색 검정색 *!*/
+/*    text-align: center !important; !* 가운데 정렬 *!*/
+/*    font-size: 1rem !important; !* 적당한 폰트 크기 *!*/
+/*    padding: 0.5rem !important; !* 상하 여백 *!*/
+/*    background-color: #f0f0f0 !important; !* 배경색 (선택 사항) *!*/
+/*    border-radius: 10px !important; !* 모서리 둥글게 *!*/
+/*    margin: 0.5rem 0 !important; !* 상하 여백 *!*/
+/*    list-style-type: none !important; !* 리스트 스타일 제거 *!*/
+/*    width: 100% !important; !* 전체 너비 *!*/
+/*    box-sizing: border-box !important; !* 패딩과 테두리가 전체 너비에 포함되도록 설정 *!*/
+/*}*/
+
+/*!* 모바일 스타일 *!*/
+/*@media (max-width: 768px) {*/
+/*    main {*/
+/*        padding: 1rem;*/
+/*        height: 85vh;*/
+/*    }*/
+
+/*    #send-msg-button {*/
+/*        width: 45px;*/
+/*        height: 45px;*/
+/*        font-size: 0.7rem;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 480px) {*/
+/*    #send-msg-button {*/
+/*        width: 40px;*/
+/*        height: 40px;*/
+/*    }*/
+
+/*    #send-msg-input {*/
+/*        padding: 0.5rem;*/
+/*    }*/
+/*}*/
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+body {
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+main {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px; /* 둥근 모서리 */
+    width: 100%;
+    max-width: 500px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+    padding: 1rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px); /* 블러 배경 */
+}
+
+#chat-div {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+#chat-ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+    max-width: 80%; /* 최대 너비를 80%로 설정 */
+    padding: 0.75rem 1.25rem; /* 패딩 증가 */
+    border-radius: 20px; /* 둥근 모서리 */
+    word-break: break-word;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    background: rgba(0, 0, 0, 0.05); /* 연한 배경색 */
+    margin: 0.5rem 0; /* 여백 조정 */
+    animation: fadeIn 0.5s ease-in-out; /* 애니메이션 추가 */
+}
+
+.bg-me {
+    background-color: #ffe082;
+    align-self: flex-end;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.bg-other {
+    background-color: #30cfd0;
+    align-self: flex-start;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+.chat-avatar {
+    width: 40px; /* 조금 더 큰 아바타 */
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.75rem; /* 여백 증가 */
+    vertical-align: middle;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 아바타 그림자 */
+}
+
+.message-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto; /* 채팅 입력창을 맨 아래에 위치시킴 */
+}
+
+#send-msg-input {
+    flex-grow: 1;
+    border: none;
+    border-radius: 20px;
+    padding: 0.75rem 1rem;
+    margin-right: 0.5rem;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.1); /* 연한 배경색 */
+    color: #333;
+}
+
+#send-msg-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#send-msg-button {
+    border: none;
+    border-radius: 50%;
+    background-color: #30cfd0;
+    color: white;
+    padding: 0.5rem;
+    width: 55px; /* 조금 큰 버튼 */
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.9rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼 그림자 */
+}
+
+#send-msg-button:hover {
+    background-color: #007ea7;
+}
+
+#send-msg-button:active {
+    transform: scale(0.95);
+}
+
+#send-msg-button span {
+    display: block;
+}
+
+#send-msg-button svg {
+    width: 22px; /* 약간 큰 아이콘 */
+    height: 22px;
+}
+
+/* 채팅 메시지 시간 표시 */
+.message-time {
+    font-size: 0.75rem;
+    color: #999;
+    text-align: right;
+    margin-top: 0.25rem;
+}
+
+/* 공지 메시지 */
+.notice-chat {
+    color: #333;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px 15px;
+    background: #f1f1f1;
+    border-radius: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    position: relative;
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notice-chat {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+        height: 85vh;
+    }
+
+    #send-msg-button {
+        width: 50px;
+        height: 50px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #send-msg-button {
+        width: 45px;
+        height: 45px;
+    }
+
+    #send-msg-input {
+        padding: 0.5rem;
+    }
+}
