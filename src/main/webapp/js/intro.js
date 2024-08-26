@@ -25,7 +25,7 @@ $(document).ready(function () {
 
                 i = 0;
                 typingInterval = setInterval(typing, 200); // 타이핑 효과 다시 시작
-            }, 5000);
+            }, 15000);
         }
     }
 
