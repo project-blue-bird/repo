@@ -2,6 +2,8 @@
 
 body {
     background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: white;
     display: flex;
     align-items: center;
@@ -157,6 +159,7 @@ li {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-weight: bold;
     position: relative;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -170,22 +173,11 @@ li {
     }
 }
 
-.notice-chat {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-/* 반응형 스타일링 */
+/* 기본 모바일 스타일 */
 @media (max-width: 768px) {
-    body {
-        padding: 0;
-    }
-
     main {
         padding: 1rem;
-        height: auto;
-        max-width: 100%;
-        box-sizing: border-box;
-        margin-top: 0;
+        height: 85vh;
     }
 
     #send-msg-button {
@@ -194,24 +186,14 @@ li {
         font-size: 0.8rem;
     }
 
-    .chat-avatar {
-        width: 35px;
-        height: 35px;
+    #send-msg-input {
+        padding: 0.6rem;
+        font-size: 0.85rem;
     }
 }
 
+/* 작은 모바일 기기 (가로 480px 이하) */
 @media (max-width: 480px) {
-    body {
-        padding: 0;
-    }
-
-    main {
-        padding: 0.5rem;
-        max-width: 100%;
-        height: auto;
-        box-sizing: border-box;
-    }
-
     #send-msg-button {
         width: 45px;
         height: 45px;
@@ -221,47 +203,61 @@ li {
         padding: 0.5rem;
         font-size: 0.8rem;
     }
-
-    li {
-        max-width: 90%;
-        padding: 0.5rem 1rem;
-    }
-
-    .chat-avatar {
-        width: 30px;
-        height: 30px;
-    }
 }
 
-/* 갤럭시 S24 울트라 해상도에 대한 반응형 스타일 */
-@media (min-width: 1440px) and (max-width: 3088px) {
-    body {
-        font-size: 1.1rem;
-    }
-
+/* 갤럭시 S24 울트라 등 특정 고해상도 모바일 기기 */
+@media (max-width: 432px) and (max-height: 960px) {
     main {
-        padding: 2rem;
+        padding: 8% 10%;
         height: 85vh;
-    }
-
-    #send-msg-input {
-        padding: 1rem 1.25rem;
-        font-size: 1rem;
+        max-width: 350px;
     }
 
     #send-msg-button {
-        width: 60px;
-        height: 60px;
-        font-size: 1rem;
+        width: 50px;
+        height: 50px;
     }
 
-    .chat-avatar {
+    #send-msg-input {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* 아이폰 12 Pro Max 등 중형 모바일 기기 */
+@media (max-width: 390px) and (max-height: 844px) {
+    main {
+        padding: 7% 8%;
+        height: 85vh;
+        max-width: 350px;
+    }
+
+    #send-msg-button {
+        width: 48px;
+        height: 48px;
+    }
+
+    #send-msg-input {
+        padding: 0.55rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* 작은 폰, 피처폰 등 */
+@media (max-width: 360px) {
+    main {
+        padding: 5% 6%;
+        height: auto;
+    }
+
+    #send-msg-button {
         width: 45px;
         height: 45px;
+        font-size: 0.75rem;
     }
 
-    li {
-        max-width: 85%;
-        padding: 1rem 1.5rem;
+    #send-msg-input {
+        padding: 0.5rem;
+        font-size: 0.75rem;
     }
 }
