@@ -6,12 +6,15 @@ const ws = new WebSocket("wss://mhd.hopto.org:8443/chat");
 window.onload = () => {
     const previousUrl = document.referrer;
     if (previousUrl === "https://mhd.hopto.org/views/login.html") {
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "로그인 성공!",
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "center",
             showConfirmButton: false,
-            timer: 3000
+            timer: 3000,
+        });
+        Toast.fire({
+            icon: "success",
+            title: "로그인 성공!"
         });
     }
     userSessionId = sessionStorage.getItem("userid");
@@ -51,8 +54,8 @@ function createNewChat(isMe, parsedData) { // 새로운 채팅을 만들어주�
     const chatAvatar = document.createElement("img");
     let parsedUserId = parsedData.userId;
     chatAvatar.src = "../images/avatar.png";
-    chatAvatar.style.cursor = "pointer";
     if (parsedUserId !== userSessionId) { // 내 글이 아닌 경우에만 facetime 클릭 이벤트 생성.
+        chatAvatar.style.cursor = "pointer";
         chatAvatar.addEventListener("click", () => {
             Swal.fire({
                 title: "Facetime",
