@@ -97,7 +97,9 @@ app.get("/api/get-users", (req, res) => {
 app.get("/api/get-chatting-users", (req, res) => {
     const response = {
         status: "success",
-        data: userList,
+        data: {
+            userList: userList,
+        },
         error: null,
         meta: {
             requestTime: new Date().toISOString()
