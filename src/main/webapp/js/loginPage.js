@@ -42,7 +42,7 @@ loginForm.addEventListener('submit', function(event) {
                 loadUsers().then((responseData) => {
                     console.log(responseData);
                     const chattingUserList = responseData.data;
-                    if (!chattingUserList.includes()) {
+                    if (!chattingUserList.includes(userid)) {
                         // 로그인 성공 시 세션 저장
                         sessionStorage.setItem('userid', userid);
 
