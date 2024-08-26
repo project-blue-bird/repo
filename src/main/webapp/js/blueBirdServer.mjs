@@ -1,8 +1,7 @@
 import WebSocket, { WebSocketServer } from "ws";
 import express from "express";
 import dotenv from "dotenv";
-// import https from "https";
-import http from "http";
+import https from "https";
 import cors from "cors";
 import fs from "fs";
 
@@ -10,13 +9,12 @@ import fs from "fs";
 dotenv.config();
 
 
-// const serverOptions = {
-//     key: fs.readFileSync(process.env.SSL_KEY),
-//     cert: fs.readFileSync(process.env.SSL_PEM)
-// };
+const serverOptions = {
+    key: fs.readFileSync(process.env.SSL_KEY),
+    cert: fs.readFileSync(process.env.SSL_PEM)
+};
 const corsOptions = {
-    // origin: "https://mhd.hopto.org",
-    origin: "*",
+    origin: "https://mhd.hopto.org",
     credentials: true,
 }
 
@@ -24,10 +22,8 @@ const corsOptions = {
 const app = express();
 app.use(express.json());
 app.use(cors(corsOptions));
-// const PORT = 8443;
-const PORT = 9099;
-// const filePath = process.env.FILE_PATH;
-const filePath = "/Users/jihyun/IdeaProjects/blueBirdProject/src/main/webapp/js/users.json";
+const PORT = 8443;
+const filePath = process.env.FILE_PATH;
 
 
 app.get("/", (req, res) => { // https express 서버.
@@ -290,9 +286,7 @@ wssChatting.on("connection", (ws) => { // 채팅 서버.
     });
 });
 
-
-// const httpsServer = https.createServer(serverOptions, app);
-const httpsServer = http.createServer(app);
+const httpsServer = https.createServer(serverOptions, app);
 
 httpsServer.on("upgrade", (request, socket, head) => {
     if (request.url.startsWith("/chat")) { // 채팅 서버.

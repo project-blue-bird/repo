@@ -15,8 +15,7 @@ const emailMessage = document.querySelector('.email-message');
 // 기존 사용자 데이터 불러오는 함수.
 async function loadUsers() {
     try {
-        // const response = await fetch("https://mhd.hopto.org:8443/api/get-users", {
-        const response = await fetch("http://192.168.240.46:9099/api/get-users", {
+        const response = await fetch("https://mhd.hopto.org:8443/api/get-users", {
             method: "GET",
         });
         if (!response.ok) { // OK 하지 않으면 에러난거임.
@@ -169,8 +168,7 @@ signupForm.addEventListener('submit', function(event) {
             username: username,
             email: email
         }
-        // fetch("https://mhd.hopto.org:8443/api/signup", { // 양식 깔끔하게 잘 맞춰서 보내줘야 합니다.
-        fetch("http://192.168.240.46:9099/api/signup", {
+        fetch("https://mhd.hopto.org:8443/api/signup", { // 양식 깔끔하게 잘 맞춰서 보내줘야 합니다.
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
