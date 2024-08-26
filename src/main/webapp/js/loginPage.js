@@ -40,7 +40,8 @@ loginForm.addEventListener('submit', function(event) {
                     return data;
                 }
                 loadUsers().then((responseData) => {
-                    const chattingUserList = responseData.data.userList;
+                    console.log(responseData);
+                    const chattingUserList = responseData.data;
                     if (!chattingUserList.includes()) {
                         // 로그인 성공 시 세션 저장
                         sessionStorage.setItem('userid', userid);
