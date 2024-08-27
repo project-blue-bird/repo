@@ -44,7 +44,7 @@ ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익
         }
     });
     const inputSendMessage = document.querySelector("#send-msg-input");
-    inputSendMessage.onkeydown = (event) => { // 메세지를 채팅 서버로 보내는 익명함수 정의.
+    inputSendMessage.addEventListener("keydown", (event) => { // 메세지를 채팅 서버로 보내는 익명함수 정의.
         if (event.key === "Enter") {
             const inputSendMessage = document.querySelector("#send-msg-input");
             const messageValue = inputSendMessage.value;
@@ -53,7 +53,7 @@ ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익
                 inputSendMessage.value = ""; // input값 초기화.
             }
         }
-    };
+    });
     if (userSessionId === undefined || userSessionId === null) { // 만약 아이디를 설정하지 못했다면,
         ws.send(JSON.stringify({ type: "no-nick" }));
         window.location.href = "../views/login.html";
@@ -202,21 +202,6 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
                     } else {
                         ws.send(JSON.stringify({ type: "facetime-deny", denyUserId: userSessionId, requestUserId: reqId }));
                     }
-                });
-            }
-            break;
-        case "waiting-users": // Facetime 요청받은 사람이 이미 대기중인 경우.
-            reqId = parsedData.requestUserId;
-            othId = parsedData.otherUserId;
-            // 신청한 사람과 수락한 사람을 화상 채팅방으로 이동시킴.
-            if (waitToast.isVisible()) {
-                waitToast.close(); // 기존 대기중 toast 닫기.
-                Swal.fire({
-                    icon: "error",
-                    title: "Facetime",
-                    backdrop: false,
-                    text: `${othId} 님은 다른 사람과의 Facetime 대기중 입니다.`,
-                    confirmButtonText: "확인",
                 });
             }
             break;

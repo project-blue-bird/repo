@@ -8,7 +8,6 @@ import fs from "fs";
 
 dotenv.config();
 const userList = [];
-const waitingUsers = new Set();
 
 
 const serverOptions = {
@@ -253,18 +252,11 @@ wssChatting.on("connection", (ws) => { // 채팅 서버.
                 console.log(`유저 ${exitUserId} 가 떠났음.`);
                 break;
             case "request-facetime": // 화상채팅 신청.
-                let responsetype;
-                if (waitingUsers.has(requestUserId) || waitingUsers.has(otherUserId)) {
-                    responsetype = "waiting-users"; // 이미 요청받고 대기중인 사람.
-                } else {
-                    waitingUsers.add(requestUserId);
-                    waitingUsers.add(otherUserId);
-                    const preReqId = parsedData.requestUserId; // 신청자.
-                    const preOthId = parsedData.otherUserId; // 수신자.
-                    responsetype = preOthId in facetimeUsers ? "already-facetime" : "request-facetime"; // already-facetime의 경우 상대방은 이미 채팅중임.
-                    if (!(userList.includes(preOthId))) { // 떠나버린 유저.
-                        responsetype = "left-user";
-                    }
+                const preReqId = parsedData.requestUserId; // 신청자.
+                const preOthId = parsedData.otherUserId; // 수신자.
+                let responsetype = preOthId in facetimeUsers ? "already-facetime" : "request-facetime"; // already-facetime의 경우 상대방은 이미 채팅중임.
+                if (!(userList.includes(preOthId))) { // 떠나버린 유저.
+                    responsetype = "left-user";
                 }
                 wssChatting.clients.forEach(client => {
                     if (client.readyState === WebSocket.OPEN) {
@@ -276,8 +268,6 @@ wssChatting.on("connection", (ws) => { // 채팅 서버.
             case "facetime-confirm": // 화상채팅 수락.
                 const reqId = parsedData.requestUserId; // 신청자.
                 const confId = parsedData.confirmUserId; // 수신자.
-                waitingUsers.delete(reqId);
-                waitingUsers.delete(confId);
                 signalingUserList = [reqId, confId];
                 const roomNumber = Object.keys(facetimeRooms).length + 1 // 방 번호는 1번부터 시작.
                 facetimeUsers[reqId] = roomNumber; // facetime 중인 유저 목록에 추가.
@@ -295,8 +285,6 @@ wssChatting.on("connection", (ws) => { // 채팅 서버.
                     if (client.readyState === WebSocket.OPEN) {
                         let reqId = parsedData.requestUserId; // 신청자.
                         let denyId = parsedData.denyUserId; // 수신자.
-                        waitingUsers.delete(reqId);
-                        waitingUsers.delete(denyId);
                         response = JSON.stringify({ type: "facetime-deny", denyUserId: denyId, requestUserId: reqId });
                         client.send(response);
                     }
