@@ -211,15 +211,6 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
             // 신청한 사람과 수락한 사람을 화상 채팅방으로 이동시킴.
             if (userSessionId === reqId || userSessionId === confId) {
                 window.location.href = "../views/facetime.html";
-            } else { // 나머지 사람들에게는 다른 사람과 대화중이라고 알림.
-                waitToast.close(); // 기존 대기중 toast 닫기.
-                Swal.fire({
-                    icon: "error",
-                    title: "Facetime",
-                    backdrop: false,
-                    text: `${denyId} 님은 다른 사람과 Facetime 중입니다.`,
-                    confirmButtonText: "확인",
-                });
             }
             break;
         case "facetime-deny": // Facetime 이 거절됨.
