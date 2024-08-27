@@ -34,7 +34,17 @@ ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익
             ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: messageValue }));
             inputSendMessage.value = ""; // input값 초기화.
         }
-    })
+    });
+    buttonSendMsg.addEventListener("keydown", (event) => { // 메세지를 채팅 서버로 보내는 익명함수 정의.
+        if (event.key === "Enter") {
+            const inputSendMessage = document.querySelector("#send-msg-input");
+            const messageValue = inputSendMessage.value;
+            if (messageValue) {
+                ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: messageValue }));
+                inputSendMessage.value = ""; // input값 초기화.
+            }
+        }
+    });
     if (userSessionId === undefined || userSessionId === null) { // 만약 아이디를 설정하지 못했다면,
         ws.send(JSON.stringify({ type: "no-nick" }));
         window.location.href = "../views/login.html";
