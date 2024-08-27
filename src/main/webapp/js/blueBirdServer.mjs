@@ -254,14 +254,26 @@ wssChatting.on("connection", (ws) => { // 채팅 서버.
             case "request-facetime": // 화상채팅 신청.
                 const preReqId = parsedData.requestUserId; // 신청자.
                 const preOthId = parsedData.otherUserId; // 수신자.
-                let responsetype = preOthId in facetimeUsers ? "already-facetime" : "request-facetime"; // 상대방은 이미 채팅중임.
-                wssChatting.clients.forEach(client => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        response = JSON.stringify({ type: responsetype, otherUserId: preOthId, requestUserId: preReqId });
-                        client.send(response);
+                let responsetype = preOthId in facetimeUsers ? "already-facetime" : "request-facetime"; // already-facetime의 경우 상대방은 이미 채팅중임.
+                if (responsetype === "request-facetime") {
+                    if (userList.includes(preOthId)) {
+                        wssChatting.clients.forEach(client => {
+                            if (client.readyState === WebSocket.OPEN) {
+                                response = JSON.stringify({ type: responsetype, otherUserId: preOthId, requestUserId: preReqId });
+                                client.send(response);
+                            }
+                        });
+                        break;
+                    } else { // 떠나버린 유저.
+                        responsetype = "left-user";
+                        wssChatting.clients.forEach(client => {
+                            if (client.readyState === WebSocket.OPEN) {
+                                response = JSON.stringify({ type: responsetype, otherUserId: preOthId, requestUserId: preReqId });
+                                client.send(response);
+                            }
+                        });
                     }
-                });
-                break;
+                }
             case "facetime-confirm": // 화상채팅 수락.
                 const reqId = parsedData.requestUserId; // 신청자.
                 const confId = parsedData.confirmUserId; // 수신자.
