@@ -218,7 +218,7 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
                         icon: "error",
                         title: "Facetime",
                         backdrop: false,
-                        text: `${denyId} 님은 다른 사람과 Facetime 중입니다.`,
+                        text: `${confId} 님은 다른 사람과 Facetime 중입니다.`,
                         confirmButtonText: "확인",
                     });
                 }
@@ -240,14 +240,14 @@ ws.addEventListener("message", (event) => { // 웹소켓 서버 활성화상태.
             break;
         case "left-user": // 해당 유저는 비활성화 상태.
             reqId = parsedData.requestUserId;
-            denyId = parsedData.denyUserId;
+            othId = parsedData.otherUserId;
             if (userSessionId === reqId) { // 신청했던 사람에게 답변을 보냄.
                 waitToast.close(); // 기존 대기중 toast 닫기.
                 Swal.fire({
                     icon: "error",
                     title: "Facetime",
                     backdrop: false,
-                    text: `해당 유저는 접속 상태가 아닙니다.`,
+                    text: `${othId} 님은 현재 접속 상태가 아닙니다.`,
                     confirmButtonText: "확인",
                 });
             }
