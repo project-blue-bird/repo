@@ -2,8 +2,6 @@
 
 body {
     background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-    background-repeat: no-repeat;
-    background-size: cover;
     color: white;
     display: flex;
     align-items: center;
@@ -31,7 +29,7 @@ main {
 
 #chat-div {
     flex-grow: 1;
-    height: 50vh;
+    overflow-y: auto;
     margin-bottom: 1rem;
     padding: 0.5rem;
     box-sizing: border-box;
@@ -55,9 +53,9 @@ li {
     display: flex;
     align-items: flex-end;
     position: relative;
-    background: rgba(0, 0, 0, 0.05);
-    margin: 0.5rem 0;
-    animation: fadeIn 0.5s ease-in-out;
+    background: rgba(0, 0, 0, 0.05); /* 연한 배경색 */
+    margin: 0.5rem 0; /* 여백 조정 */
+    animation: fadeIn 0.5s ease-in-out; /* 애니메이션 추가 */
 }
 
 .bg-me {
@@ -161,7 +159,6 @@ li {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-weight: bold;
     position: relative;
-    animation: fadeIn 0.5s ease-in-out;
 }
 
 /* 애니메이션 효과 */
@@ -176,7 +173,11 @@ li {
     }
 }
 
-/* 반응형 스타일 조정 */
+.notice-chat {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 모바일 스타일 */
 @media (max-width: 768px) {
     main {
         padding: 1rem;

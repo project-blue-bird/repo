@@ -4,23 +4,19 @@ let userSessionId; // 입장시 사용되는 아이디.
 const ws = new WebSocket("wss://mhd.hopto.org:8443/chat");
 
 window.onload = () => {
+    const previousUrl = document.referrer;
+    if (previousUrl === "https://mhd.hopto.org/views/login.html") {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "로그인 성공!",
+            showConfirmButton: false,
+            timer: 3000
+        });
+    }
     userSessionId = sessionStorage.getItem("userid");
     if (userSessionId === undefined || userSessionId === null) {
         window.location.href = "../views/login.html";
-    } else {
-        const previousUrl = document.referrer;
-        if (previousUrl === "https://mhd.hopto.org/views/login.html") {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "center",
-                showConfirmButton: false,
-                timer: 3000,
-            });
-            Toast.fire({
-                icon: "success",
-                title: "로그인 성공!"
-            });
-        }
     }
 }
 
@@ -29,15 +25,11 @@ ws.onopen = () => { // 채팅 서버로 처음 입장했을 때 수행되는 익
     const buttonSendMsg = document.querySelector("#send-msg-button");
     buttonSendMsg.addEventListener("click", () => { // 메세지를 채팅 서버로 보내는 익명함수 정의.
         const inputSendMessage = document.querySelector("#send-msg-input");
-        const messageValue = inputSendMessage.value;
-        if (messageValue) {
-            ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: messageValue }));
-            inputSendMessage.value = ""; // input값 초기화.
-        }
+        ws.send(JSON.stringify({ type: "send-chat", userId: userSessionId, content: inputSendMessage.value }));
+        inputSendMessage.value = ""; // input값 초기화.
     })
-    if (userSessionId === undefined || userSessionId === null) { // 만약 아이디를 설정하지 못했다면,
+    if (userSessionId === undefined) { // 만약 아이디를 설정하지 못했다면,
         ws.send(JSON.stringify({ type: "no-nick" }));
-        window.location.href = "../views/login.html";
     } else { // 그렇지 않은 경우 인증 시도.
         ws.send(JSON.stringify({ type: "identify", userId: userSessionId }));
     }
@@ -59,8 +51,8 @@ function createNewChat(isMe, parsedData) { // 새로운 채팅을 만들어주�
     const chatAvatar = document.createElement("img");
     let parsedUserId = parsedData.userId;
     chatAvatar.src = "../images/avatar.png";
+    chatAvatar.style.cursor = "pointer";
     if (parsedUserId !== userSessionId) { // 내 글이 아닌 경우에만 facetime 클릭 이벤트 생성.
-        chatAvatar.style.cursor = "pointer";
         chatAvatar.addEventListener("click", () => {
             Swal.fire({
                 title: "Facetime",
